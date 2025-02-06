@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>БАШ-ТАШ - Изготовление и продажа памятников</title>
+    <style>
+        /* Общие стили */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9f9f9; /* Светлый фон */
+            color: #333; /* Темный текст */
+            line-height: 1.6;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #0056b3; /* Синий акцент */
+        }
+
+        h1, h2, p {
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            font-size: 2rem;
+        }
+
+        /* Стили для header */
+        header {
+            background: #2c3e50; /* Темно-синий фон */
+            color: #fff; /* Белый текст */
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+        }
+
+        header .contact-info {
+            font-size: 0.9rem;
+            text-align: right;
+        }
+
+        header .contact-info p {
+            margin-bottom: 5px;
+        }
+
+        /* Стили для навигации */
+        nav {
+            background: #34495e; /* Чуть светлее, чем header */
+            display: flex;
+            justify-content: center;
+            padding: 10px 0;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+        }
+
+        nav a:hover {
+            background: #5a6d7c; /* Светло-серый фон при наведении */
+            color: #fff;
+        }
+
+        /* Слайдер */
+        .slider {
+            width: 100%;
+            max-width: 1200px;
+            margin: 20px auto;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .slides img {
+            width: 100%;
+            border-radius: 5px;
+        }
+
+        /* Категории */
+        .categories {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin: 20px auto;
+            max-width: 1200px;
+        }
+
+        .categories div {
+            flex: 1 1 calc(50% - 20px);
+            margin: 10px;
+            text-align: center;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            transition: transform 0.3s, background 0.3s;
+        }
+
+        .categories div:hover {
+            transform: scale(1.05);
+            background: #f2f2f2;
+        }
+
+        .categories div img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+
+        .categories div p {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #0056b3; /* Синий акцент */
+        }
+
+        /* Форма обратной связи */
+        .contact-form {
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 20px;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .contact-form h2 {
+            text-align: center;
+            margin-bottom: 15px;
+            color: #0056b3;
+        }
+
+        .contact-form label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .contact-form input, .contact-form textarea, .contact-form button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: #f9f9f9;
+        }
+
+        .contact-form input:focus, .contact-form textarea:focus {
+            border-color: #0056b3;
+            outline: none;
+        }
+
+        .contact-form button {
+            background: #0056b3;
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .contact-form button:hover {
+            background: #00408d;
+        }
+
+        /* Footer */
+        footer {
+            background: #2c3e50;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        footer .map {
+            margin: 20px auto;
+            width: 100%;
+            max-width: 600px;
+            height: 300px;
+            border: none;
+            border-radius: 5px;
+        }
+
+        footer p {
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>БАШ-ТАШ</h1>
+        <div class="contact-info">
+            <p>Адрес: 
+                г. Симферополь
+                пр. Победы 254 / ул. Школьная,2</p>
+               <p>Пгт. Нижнегорский, пр. Победы 38</p>
+            <p>Телефон: +7 978 78 08 504</p>
+                <p>+7 978 83 27 538</p>
+                <p>e-mail: narimansadetov@mail.ru</p>
+        </div>
+    </header>
+
+    <nav>
+        <a href="index.html">Главная</a>
+        <a href="muslim.html">Мусульманские</a>
+        <a href="christian.html">Христианские</a>
+        <a href="exclusive.html">Только у нас</a>
+        <a href="works.html">Наши работы</a>
+        <a href="catalog.html">Каталог</a>
+    </nav>
+
+    <main>
+        <!-- Слайдер -->
+        <div class="slider">
+            <div class="slides">
+                <img src="https://via.placeholder.com/1200x400" alt="Памятник 1">
+                <img src="https://via.placeholder.com/1200x400" alt="Памятник 2">
+                <img src="https://via.placeholder.com/1200x400" alt="Памятник 3">
+            </div>
+        </div>
+
+        <!-- Категории -->
+        <div class="categories">
+            <div>
+                <img src="https://via.placeholder.com/300x200" alt="Мусульманские памятники">
+                <p>Мусульманские памятники</p>
+            </div>
+            <div>
+                <img src="https://via.placeholder.com/300x200" alt="Христианские памятники">
+                <p>Христианские памятники</p>
+            </div>
+        </div>
+
+        <!-- Форма обратной связи -->
+        <div class="contact-form">
+            <h2>Свяжитесь с нами</h2>
+            <form action="#" method="post">
+                <label for="name">Ваше имя:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="phone">Ваш телефон:</label>
+                <input type="tel" id="phone" name="phone" required>
+
+                <label for="message">Сообщение:</label>
+                <textarea id="message" name="message" rows="5" required></textarea>
+
+                <button type="submit">Отправить</button>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <!--<iframe 
+            class="map" 
+            src="https://yandex.ru/map-widget/v1/?um=constructor%3Aexample&source=constructor" 
+            frameborder="0">
+        </iframe>-->
+        <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A70ad97b1b8037ba4e9c9475ced2fc0d7fb5e91d7bd4f194edaae480360dfd62b&amp;source=constructor" width="565" height="406" frameborder="0"></iframe>
+    </p>
+        <p>Телефон: +7 978 78 08 504</p>
+            <p>+7 978 83 27 538</p>
+    </footer>
+
+    <script>
+        // Реализация слайдера
+        const slides = document.querySelector('.slides');
+        let index = 0;
+
+        setInterval(() => {
+            index = (index + 1) % 3;
+            slides.style.transform = `translateX(-${index * 100}%)`;
+        }, 3000);
+    </script>
+</body>
+</html>
