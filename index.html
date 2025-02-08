@@ -4,30 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>БАШ-ТАШ - Изготовление и продажа памятников</title>
-    <script type="text/javascript" async="async">
-        (function () {
-      function init() {
-            const scr = document.createElement("script");
-            scr.type = "text/javascript";
-            scr.async = "async";
-            scr.src = "//cdn.qform.io/forms.js?v=" + new Date().getTime();
-            scr.charset="UTF-8";
-            const scrInsert = document.getElementsByTagName("script")[0];
-            scrInsert.parentNode.insertBefore(scr, scrInsert);
-          }
-          const d = document;
-          const w = window;
-          if (d.readyState === "interactive") {
-            init();
-          } else {
-            if (w.attachEvent) {
-      w.attachEvent("onload", init);
-            } else {
-      w.addEventListener("DOMContentLoaded", init, false);
-            }
-          }
-        })();
-      </script>
     <style>
         /* Общие стили */
         * {
@@ -37,19 +13,21 @@
         }
 
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f9f9f9; /* Светлый фон */
-            color: #333; /* Темный текст */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-image: url(background.png);
+            background-size: 100%;
+            color: #333;
             line-height: 1.6;
         }
 
         a {
             color: inherit;
             text-decoration: none;
+            transition: color 0.3s ease;
         }
 
         a:hover {
-            color: #0056b3; /* Синий акцент */
+            /*color: #0056b3;*/
         }
 
         h1, h2, p {
@@ -57,27 +35,61 @@
         }
 
         h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            font-family: 'Playfair Display', serif; /* Красивый шрифт для заголовка */
+        }
+
+        h2 {
             font-size: 2rem;
+            font-weight: 600;
+            color: #918973ab;
         }
 
         /* Стили для header */
         header {
-            background: #2c3e50; /* Темно-синий фон */
-            color: #fff; /* Белый текст */
-            padding: 15px 20px;
+            /*background: linear-gradient(to right, #2c3e50, #34495e); */
+            background-image: url("header.jpg");
+            background-size: 100%;
+            color: #fff;
+            padding: 40px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.1); /* Легкое затемнение */
+            z-index: 1;
+        }
+
+        header h1, header .contact-info {
+            position: relative;
+            z-index: 2;
         }
 
         header h1 {
-            font-size: 1.8rem;
+            font-size: 3rem;
+            animation: fadeIn 1s ease-in-out;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Тень для текста */
         }
 
         header .contact-info {
-            font-size: 0.9rem;
+            font-size: 1rem;
             text-align: right;
+           /* background: rgba(255, 255, 255, 0.1); *//* Полупрозрачный фон */
+            padding: 10px 15px;
+            border-radius: 5px;
         }
 
         header .contact-info p {
@@ -86,10 +98,11 @@
 
         /* Стили для навигации */
         nav {
-            background: #34495e; /* Чуть светлее, чем header */
+            background: #918973ab;
             display: flex;
             justify-content: center;
             padding: 10px 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         nav a {
@@ -97,32 +110,65 @@
             text-decoration: none;
             padding: 10px 20px;
             font-size: 1rem;
+            transition: background 0.3s ease, transform 0.3s ease;
         }
 
         nav a:hover {
-            background: #5a6d7c; /* Светло-серый фон при наведении */
-            color: #fff;
+           /* background: #34495e;*/
+            transform: translateY(-3px);
         }
 
-        /* Слайдер */
+        /* Стили для слайдера */
         .slider {
             width: 100%;
-            max-width: 1200px;
+            max-width: 800px; /* Уменьшили ширину слайдера */
             margin: 20px auto;
             overflow: hidden;
             position: relative;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
         .slides {
             display: flex;
             transition: transform 0.5s ease-in-out;
+            gap: 10px; /* Отступ между картинками */
+            padding: 0 10px; /* Чтобы первая и последняя картинки не прилипали к краям */
         }
 
         .slides img {
-            width: 100%;
-            border-radius: 5px;
+            width: calc((100% - 20px) / 3); /* Учитываем отступы между картинками */
+            height: 100%; /* Автоматическая высота для сохранения пропорций */
+            border-radius: 10px;
+            flex-shrink: 0;
+            max-height: 250px; /* Уменьшили высоту изображений */
+        }
+
+        /* Стили для стрелок */
+        .slider button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(44, 62, 80, 0.7);
+            color: #fff;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 1.5rem;
+            border-radius: 50%;
+            transition: background 0.3s ease;
+        }
+
+        .slider button:hover {
+            background: rgba(44, 62, 80, 1);
+        }
+
+        .slider .prev {
+            left: 10px;
+        }
+
+        .slider .next {
+            right: 10px;
         }
 
         /* Категории */
@@ -138,84 +184,75 @@
             flex: 1 1 calc(50% - 20px);
             margin: 10px;
             text-align: center;
-            background: #fff;
+            background: #bdb59d98;
             border: 1px solid #ddd;
-            border-radius: 5px;
-            padding: 15px;
-            transition: transform 0.3s, background 0.3s;
+            border-radius: 10px;
+            padding: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .categories div:hover {
-            transform: scale(1.05);
-            background: #f2f2f2;
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
         }
 
         .categories div img {
-            max-width: 100%;
+            max-width: 50%;
             height: auto;
             margin-bottom: 10px;
-            border-radius: 5px;
+            border-radius: 10px;
         }
 
         .categories div p {
             font-size: 1.2rem;
             font-weight: bold;
-            color: #0056b3; /* Синий акцент */
+            color: #fbfbf9;
         }
 
-        /* Форма обратной связи */
-        .contact-form {
-            max-width: 600px;
+        /* Стили для раздела "Наши преимущества" */
+        .advantages {
+            max-width: 800px;
             margin: 30px auto;
             padding: 20px;
-            background: #fff;
+            background: #bdb59d98;
             border: 1px solid #ddd;
-            border-radius: 5px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
-        .contact-form h2 {
+        .advantages h2 {
             text-align: center;
-            margin-bottom: 15px;
-            color: #0056b3;
+            margin-bottom: 20px;
+            color: #fafbf8;
         }
 
-        .contact-form label {
-            display: block;
-            margin-bottom: 5px;
+        .advantages ul {
+            list-style-type: none;
+            padding: 0;
         }
 
-        .contact-form input, .contact-form textarea, .contact-form button {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+        .advantages ul li {
             background: #f9f9f9;
+            margin: 10px 0;
+            padding: 15px;
+            border-left: 5px solid #85816f;
+            font-size: 1.1rem;
+            color: #736c5aab;
+            transition: background 0.3s ease, transform 0.3s ease;
         }
 
-        .contact-form input:focus, .contact-form textarea:focus {
-            border-color: #0056b3;
-            outline: none;
-        }
-
-        .contact-form button {
-            background: #0056b3;
-            color: #fff;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-
-        .contact-form button:hover {
-            background: #00408d;
+        .advantages ul li:hover {
+            background: #e9e9e9;
+            transform: translateX(10px);
         }
 
         /* Footer */
         footer {
-            background: #2c3e50;
+            background: #bdb59de4;
             color: #fff;
             padding: 20px;
             text-align: center;
+            box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
         }
 
         footer .map {
@@ -224,26 +261,39 @@
             max-width: 600px;
             height: 300px;
             border: none;
-            border-radius: 5px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
         footer p {
             margin-top: 10px;
             font-size: 0.9rem;
         }
+
+        /* Анимации */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Подключение шрифтов */
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Segoe+UI&display=swap');
     </style>
 </head>
 <body>
     <header>
         <h1>БАШ-ТАШ</h1>
+        
         <div class="contact-info">
-            <p>Адрес: 
-                г. Симферополь
-                пр. Победы 254 / ул. Школьная,2</p>
-               <p>Пгт. Нижнегорский, пр. Победы 38</p>
+            <p>Адрес: г. Симферополь, пр. Победы 254 / ул. Школьная, 2</p>
+            <p>Пгт. Нижнегорский, пр. Победы 38</p>
             <p>Телефон: +7 978 78 08 504</p>
-                <p>+7 978 83 27 538</p>
-                <p>e-mail: narimansadetov@mail.ru</p>
+            <p>+7 978 83 27 538</p>
+            <p>e-mail: narimansadetov@mail.ru</p>
         </div>
     </header>
 
@@ -260,64 +310,96 @@
         <!-- Слайдер -->
         <div class="slider">
             <div class="slides">
-                <img src="https://via.placeholder.com/1200x400" alt="Памятник 1">
-                <img src="https://via.placeholder.com/1200x400" alt="Памятник 2">
-                <img src="https://via.placeholder.com/1200x400" alt="Памятник 3">
+                <img src="1.jpg" alt="Памятник 1">
+                <img src="2.jpg" alt="Памятник 2">
+                <img src="5.jpg" alt="Памятник 3">
+                <img src="4.jpg" alt="Памятник 4">
+                <img src="27.png" alt="Памятник 5">
+                <img src="20.png" alt="Памятник 6">
+                <img src="6.jpg" alt="Памятник 7">
+                <img src="22.jpg" alt="Памятник 8">
+                <img src="23.jpg" alt="Памятник 9">
+                <img src="7.jpg" alt="Памятник 10">
+                <img src="24.jpg" alt="Памятник 11">
+                <img src="26.png" alt="Памятник 12">
             </div>
+            <!-- Стрелки для листания -->
+            <button class="prev" onclick="prevSlide()">&#10094;</button>
+            <button class="next" onclick="nextSlide()">&#10095;</button>
         </div>
 
         <!-- Категории -->
         <div class="categories">
             <div>
-                <img src="https://via.placeholder.com/300x200" alt="Мусульманские памятники">
+                <img src="mus.png" alt="Мусульманские памятники">
                 <p>Мусульманские памятники</p>
             </div>
             <div>
-                <img src="https://via.placeholder.com/300x200" alt="Христианские памятники">
+                <img src="hris.jpg" alt="Христианские памятники">
                 <p>Христианские памятники</p>
             </div>
         </div>
 
-        <!-- Форма обратной связи -->
-        <div data-formid="form_j6KN86-1TkoeAzJvgyquf0RXJaQ_RR-5"></div>
-        <div class="contact-form">
-            <h2>Свяжитесь с нами</h2>
-            <form action="#" method="post">
-                <label for="name">Ваше имя:</label>
-                <input type="text" id="name" name="name" required>
-
-                <label for="phone">Ваш телефон:</label>
-                <input type="tel" id="phone" name="phone" required>
-
-                <label for="message">Сообщение:</label>
-                <textarea id="message" name="message" rows="5" required></textarea>
-
-                <button type="submit">Отправить</button>
-            </form>
+        <!-- Наши преимущества -->
+        <div class="advantages">
+            <h2>Наши преимущества</h2>
+            <ul>
+                <li>Изделия из белого мрамора</li>
+                <li>Современные технологии</li>
+                <li>Использование новейшего оборудования</li>
+                <li>Инновационные методы гравировки</li>
+                <li>На рынке более 20 лет</li>
+                <li>Гарантия 70 лет</li>
+            </ul>
         </div>
     </main>
 
     <footer>
-        <!--<iframe 
+        <iframe 
             class="map" 
-            src="https://yandex.ru/map-widget/v1/?um=constructor%3Aexample&source=constructor" 
+            src="https://yandex.ru/map-widget/v1/?um=constructor%3A70ad97b1b8037ba4e9c9475ced2fc0d7fb5e91d7bd4f194edaae480360dfd62b&amp;source=constructor" 
             frameborder="0">
-        </iframe>-->
-        <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A70ad97b1b8037ba4e9c9475ced2fc0d7fb5e91d7bd4f194edaae480360dfd62b&amp;source=constructor" width="565" height="406" frameborder="0"></iframe>
-    </p>
+        </iframe>
         <p>Телефон: +7 978 78 08 504</p>
-            <p>+7 978 83 27 538</p>
+        <p>+7 978 83 27 538</p>
     </footer>
 
     <script>
-        // Реализация слайдера
         const slides = document.querySelector('.slides');
         let index = 0;
+        const totalSlides = 12; // Общее количество слайдов
+        const visibleSlides = 3; // Количество видимых слайдов
+        const gap = 10; // Отступ между картинками в пикселях
 
-        setInterval(() => {
-            index = (index + 1) % 3;
-            slides.style.transform = `translateX(-${index * 100}%)`;
-        }, 3000);
+        // Функция для перехода к следующему слайду
+        function nextSlide() {
+            if (index < totalSlides - visibleSlides) {
+                index++;
+            } else {
+                index = 0; // Возврат к началу, если достигнут конец
+            }
+            updateSlider();
+        }
+
+        // Функция для перехода к предыдущему слайду
+        function prevSlide() {
+            if (index > 0) {
+                index--;
+            } else {
+                index = totalSlides - visibleSlides; // Переход к концу, если достигнуто начало
+            }
+            updateSlider();
+        }
+
+        // Функция для обновления позиции слайдера
+        function updateSlider() {
+            const slideWidth = (slides.offsetWidth - (visibleSlides - 1) * gap) / visibleSlides; // Ширина одного слайда с учетом отступов
+            const offset = -index * (slideWidth + gap); // Смещение с учетом отступов
+            slides.style.transform = `translateX(${offset}px)`;
+        }
+
+        // Автоматическое листание (опционально)
+        setInterval(nextSlide, 3000);
     </script>
 </body>
 </html>
