@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>БАШ-ТАШ - Мусульманские памятники</title>
+    <style>
+        /* Общие стили */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-image: url(background.png);
+            background-size: 100%;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            /*color: #0056b3;*/
+        }
+
+        h1, h2, p {
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            font-family: 'Playfair Display', serif; /* Красивый шрифт для заголовка */
+        }
+
+        h2 {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #918973ab;
+        }
+
+        /* Стили для header */
+        header {
+            /*background: linear-gradient(to right, #2c3e50, #34495e); */
+            background-image: url("header.jpg");
+            background-size: 100%;
+            color: #fff;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.1); /* Легкое затемнение */
+            z-index: 1;
+        }
+
+        header h1, header .contact-info {
+            position: relative;
+            z-index: 2;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            animation: fadeIn 1s ease-in-out;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Тень для текста */
+        }
+
+        header .contact-info {
+            font-size: 1rem;
+            text-align: right;
+           /* background: rgba(255, 255, 255, 0.1); *//* Полупрозрачный фон */
+            padding: 10px 15px;
+            border-radius: 5px;
+        }
+
+        header .contact-info p {
+            margin-bottom: 5px;
+        }
+
+        /* Стили для навигации */
+        nav {
+            background: #918973ab;
+            display: flex;
+            justify-content: center;
+            padding: 10px 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        nav a:hover {
+           /* background: #34495e;*/
+            transform: translateY(-3px);
+        }
+
+        /* Стили для грид-боксов */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 20px auto;
+        }
+
+        .grid-item {
+            background: #bdb59d98;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* Название прикреплено к нижнему краю */
+        }
+
+        .grid-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .grid-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            padding: 10px; /* Отступы внутри ячейки */
+            cursor: pointer; /* Курсор при наведении на картинку */
+        }
+
+        .grid-item p {
+            text-align: center;
+            padding: 10px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #fbfbf9;
+            margin: 0; /* Убираем отступы */
+        }
+
+        /* Модальное окно */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 10px;
+        }
+
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: #fff;
+            font-size: 30px;
+            cursor: pointer;
+        }
+
+        /* Footer */
+        footer {
+            background: #bdb59de4;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        footer .map {
+            margin: 20px auto;
+            width: 100%;
+            max-width: 600px;
+            height: 300px;
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        footer p {
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+
+        /* Анимации */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Подключение шрифтов */
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Segoe+UI&display=swap');
+    </style>
+</head>
+<body>
+    <header>
+        <h1>БАШ-ТАШ</h1>
+        
+        <div class="contact-info">
+            <p>Адрес: г. Симферополь, пр. Победы 254 / ул. Школьная, 2</p>
+            <p>Пгт. Нижнегорский, пр. Победы 38</p>
+            <p>Телефон: +7 978 78 08 504</p>
+            <p>+7 978 83 27 538</p>
+            <p>e-mail: narimansadetov@mail.ru</p>
+        </div>
+    </header>
+
+    <nav>
+        <a href="index.html">Главная</a>
+        <a href="muslim.html">Мусульманские</a>
+        <a href="christian.html">Христианские</a>
+        <a href="exclusive.html">Только у нас</a>
+        <a href="works.html">Наши работы</a>
+        <a href="catalog.html">Каталог</a>
+    </nav>
+
+    <main>
+        <!-- Грид-боксы с фотографиями и названиями -->
+        <div class="grid-container">
+            <div class="grid-item">
+                <img src="мусульманские/mus1.jpg" alt="Модель ПM- 010">
+                <p>Модель ПM- 010</p>
+            </div>
+            <div class="grid-item">
+                <img src="мусульманские/mus5.jpg" alt="Модель ПM - 022">
+                <p>Модель ПM - 002</p>
+            </div>
+            <div class="grid-item">
+                <img src="мусульманские/mus6.jpg" alt="Модель ПM - 023">
+                <p>Модель ПM - 003</p>
+            </div>
+            <div class="grid-item">
+                <img src="мусульманские/mus4.jpg" alt="Модель ПМ- 021">
+                <p>Модель ПМ- 021</p>
+            </div>
+            <div class="grid-item">
+                <img src="мусульманские/mus2.jpg" alt="Модель ПМ- 002">
+                <p>Модель ПМ- 022</p>
+            </div>
+            <div class="grid-item">
+                <img src="мусульманские/mus3.jpg" alt="Модель ПМ- 003">
+                <p>Модель ПМ- 023</p>
+            </div>
+            <div class="grid-item">
+                <img src="мусульманские/mus12.png" alt="Модель ПМ- 014">
+                <p>Модель ПМ- 017</p>
+            </div>
+            <div class="grid-item">
+                <img src="мусульманские/mus8.jpg" alt="Модель ПМ- 019">
+                <p>Модель ПМ- 019</p>
+            </div>
+            <div class="grid-item">
+                <img src="мусульманские/mus9.png" alt="Модель ПМ- 005">
+                <p>Модель ПМ- 005</p>
+            </div>
+            <div class="grid-item">
+                <img src="мусульманские/mus10.png" alt="Модель ПМ- 006">
+                <p>Модель ПМ- 006</p>
+            </div>
+            <div class="grid-item">
+                <img src="мусульманские/mus11.png" alt="Модель ПМ- 013">
+                <p>Модель ПМ- 013</p>
+            </div>
+            <div class="grid-item">
+                <img src="мусульманские/mus7.jpg" alt="Модель ПМ- 017">
+                <p>Модель ПМ- 014</p>
+            </div>
+            <div class="grid-item">
+                <img src="мусульманские/mus13.png" alt="Модель ПМ- 016">
+                <p>Модель ПМ- 016</p>
+            </div>
+            <div class="grid-item">
+                <img src="мусульманские/mus14.png" alt="Модель ПМ- 018">
+                <p>Модель ПМ- 018</p>
+            </div>
+            <div class="grid-item">
+                <img src="мусульманские/mus15.jpg" alt="Модель ПB- 001">
+                <p>Модель ПB- 001</p>
+            </div>
+            <div class="grid-item">
+                <img src="мусульманские/mus17.png" alt="Модель ПМ- 025">
+                <p>Модель ПМ- 024</p>
+            </div>
+            <div class="grid-item">
+                <img src="мусульманские/mus16.png" alt="Модель ПМ- 024">
+                <p>Модель ПМ- 025</p>
+            </div>
+            <div class="grid-item">
+                <img src="мусульманские/mus18.png" alt="Модель ПМ- 026">
+                <p>Модель ПМ- 026</p>
+            </div>
+            <div class="grid-item">
+                <img src="мусульманские/mus19.png" alt="Модель ПМ- 027">
+                <p>Модель ПМ- 027</p>
+            </div>
+            <div class="grid-item">
+                <img src="мусульманские/mus20.png" alt="Модель ПМ- 028">
+                <p>Модель ПМ- 028</p>
+            </div>
+            <div class="grid-item">
+                <img src="мусульманские/mus21.png" alt="Модель ПМ- 029">
+                <p>Модель ПМ- 029</p>
+            </div>
+            <div class="grid-item">
+                <img src="мусульманские/mus22.jpg" alt="Модель ПМ- 037">
+                <p>Модель ПМ- 037</p>
+            </div>
+            <div class="grid-item">
+                <img src="мусульманские/mus23.jpg" alt="Модель ПМ- 038">
+                <p>Модель ПМ- 038</p>
+            </div>
+            <div class="grid-item">
+                <img src="мусульманские/mus24.jpg" alt="Модель ПМ- 039">
+                <p>Модель ПМ- 039</p>
+            </div>
+            <div class="grid-item">
+                <img src="мусульманские/mus25.jpg" alt="Модель ПМ- 043">
+                <p>Модель ПМ- 043</p>
+            </div>
+            <div class="grid-item">
+                <img src="мусульманские/mus26.jpg" alt="Модель ПМ- 044">
+                <p>Модель ПМ- 044</p>
+            </div>
+            <div class="grid-item">
+                <img src="мусульманские/mus27.jpg" alt="Модель ПМ- 045">
+                <p>Модель ПМ- 045</p>
+            </div>
+            <div class="grid-item">
+                <img src="мусульманские/mus29.jpg" alt="Модель ПМ- 049">
+                <p>Модель ПМ- 046</p>
+            </div>
+            <div class="grid-item">
+                <img src="мусульманские/mus28.jpg" alt="Модель ПМ- 046">
+                <p>Модель ПМ- 049</p>
+            </div>
+        </div>
+
+        <!-- Модальное окно -->
+        <div id="modal" class="modal">
+            <span class="close">&times;</span>
+            <img id="modal-img" src="" alt="">
+        </div>
+    </main>
+
+    <footer>
+        <iframe 
+            class="map" 
+            src="https://yandex.ru/map-widget/v1/?um=constructor%3A70ad97b1b8037ba4e9c9475ced2fc0d7fb5e91d7bd4f194edaae480360dfd62b&amp;source=constructor" 
+            frameborder="0">
+        </iframe>
+        <p>Телефон: +7 978 78 08 504</p>
+        <p>+7 978 83 27 538</p>
+    </footer>
+
+    <script>
+        // Скрипт для открытия модального окна
+        const modal = document.getElementById('modal');
+        const modalImg = document.getElementById('modal-img');
+        const closeBtn = document.querySelector('.close');
+
+        // Открытие модального окна
+        document.querySelectorAll('.grid-item img').forEach(img => {
+            img.addEventListener('click', () => {
+                modal.style.display = 'flex';
+                modalImg.src = img.src;
+                modalImg.alt = img.alt;
+            });
+        });
+
+        // Закрытие модального окна
+        closeBtn.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        // Закрытие модального окна при клике вне изображения
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
