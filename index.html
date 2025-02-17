@@ -209,6 +209,64 @@
             color: #fbfbf9;
         }
 
+        /* Стили для поисковой строки */
+        .search-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .search-container input {
+            padding: 10px;
+            width: 300px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .search-container button {
+            padding: 10px 20px;
+            background-color: #918973ab;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .search-container button:hover {
+            background-color: #736c5aab;
+        }
+
+        /* Стили для отображения найденной модели */
+        .model-result {
+            text-align: center;
+            margin: 20px auto;
+            max-width: 600px;
+            padding: 20px;
+            background: #bdb59d98;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .model-result img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .model-result h3 {
+            font-size: 1.5rem;
+            color: #fbfbf9;
+        }
+
+        .model-result p {
+            font-size: 1rem;
+            color: #736c5aab;
+        }
+
         /* Стили для раздела "Наши преимущества" */
         .advantages {
             max-width: 800px;
@@ -303,7 +361,6 @@
         <a href="hrist.html">Христианские</a>
         <a href="tolko.html">Только у нас</a>
         <a href="mod.html">Наши работы</a>
-        
     </nav>
 
     <main>
@@ -326,6 +383,19 @@
             <!-- Стрелки для листания -->
             <button class="prev" onclick="prevSlide()">&#10094;</button>
             <button class="next" onclick="nextSlide()">&#10095;</button>
+        </div>
+
+        <!-- Поисковая строка -->
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Введите название модели">
+            <button onclick="searchModel()">Найти</button>
+        </div>
+
+        <!-- Блок для отображения найденной модели -->
+        <div id="modelResult" class="model-result" style="display: none;">
+            <img id="modelImage" src="" alt="Изображение модели">
+            <h3 id="modelTitle"></h3>
+            <p id="modelDescription"></p>
         </div>
 
         <!-- Категории -->
@@ -404,6 +474,342 @@
 
         // Автоматическое листание (опционально)
         setInterval(nextSlide, 3000);
+
+        // Список моделей памятников
+        const models = [
+            {
+                id: "ПМ-010",
+                title: "Модель ПМ-010",
+                image: "мусульманские/1.jpg",
+            },
+            {
+                id: "ПМ-002",
+                title: "Модель ПМ-002",
+                image: "мусульманские/2.jpg",
+            },
+            {
+                id: "ПМ-003",
+                title: "Памятник ПМ-003",
+                image: "мусульманские/3.jpg"
+            },
+            {
+                id: "ПМ-021",
+                title: "Памятник ПМ-021",
+                image: "мусульманские/4.jpg"
+            },
+            {
+                id: "ПМ-022",
+                title: "Памятник ПМ-022",
+                image: "мусульманские/5.jpg"
+            },
+            {
+                id: "ПМ-023",
+                title: "Памятник ПМ-023",
+                image: "мусульманские/12.jpg"
+            },
+            {
+                id: "ПМ-017",
+                title: "Памятник ПМ-017",
+                image: "мусульманские/16.jpg"
+            },
+            {
+                id: "ПМ-019",
+                title: "Памятник ПМ-019",
+                image: "мусульманские/9.jpg"
+            },
+            {
+                id: "ПМ-005",
+                title: "Памятник ПМ-005",
+                image: "мусульманские/10.jpg"
+            },
+            {
+                id: "ПМ-013",
+                title: "Памятник ПМ-013",
+                image: "мусульманские/7.jpg"
+            },
+            {
+                id: "ПМ-014",
+                title: "Памятник ПМ-014",
+                image: "мусульманские/13.jpg"
+            },
+            {
+                id: "ПМ-016",
+                title: "Памятник ПМ-016",
+                image: "мусульманские/23.jpg"
+            },
+            {
+                id: "ПМ-018",
+                title: "Памятник ПМ-018",
+                image: "мусульманские/15.jpg"
+            },
+            {
+                id: "ПМ-001",
+                title: "Памятник ПМ-001",
+                image: "мусульманские/8.jpg"
+            },
+            {
+                id: "ПМ-024",
+                title: "Памятник ПМ-024",
+                image: "мусульманские/18.jpg"
+            },
+            {
+                id: "ПМ-025",
+                title: "Памятник ПМ-025",
+                image: "мусульманские/19.jpg"
+            },
+            {
+                id: "ПМ-026",
+                title: "Памятник ПМ-026",
+                image: "мусульманские/20.jpg"
+            },
+            {
+                id: "ПМ-027",
+                title: "Памятник ПМ-027",
+                image: "мусульманские/21.jpg"
+            },
+            {
+                id: "ПМ-028",
+                title: "Памятник ПМ-028",
+                image: "мусульманские/31.jpg"
+            },
+            {
+                id: "ПМ-037",
+                title: "Памятник ПМ-037",
+                image: "мусульманские/42.jpg"
+            },
+            {
+                id: "ПМ-038",
+                title: "Памятник ПМ-038",
+                image: "мусульманские/25.jpg"
+            },
+            {
+                id: "ПМ-039",
+                title: "Памятник ПМ-039",
+                image: "мусульманские/26.jpg"
+            },
+            {
+                id: "ПМ-043",
+                title: "Памятник ПМ-043",
+                image: "мусульманские/27.jpg"
+            },
+            {
+                id: "ПМ-044",
+                title: "Памятник ПМ-044",
+                image: "мусульманские/28.jpg"
+            },
+            {
+                id: "ПМ-045",
+                title: "Памятник ПМ-045",
+                image: "мусульманские/29.jpg"
+            },
+            {
+                id: "ПМ-046",
+                title: "Памятник ПМ-046",
+                image: "мусульманские/44.jpg"
+            },
+            {
+                id: "ПМ-049",
+                title: "Памятник ПМ-049",
+                image: "мусульманские/22.jpg"
+            },
+            {
+                id: "ПМ-047",
+                title: "Памятник ПМ-047",
+                image: "мусульманские/32.jpg"
+            },
+            {
+                id: "ПМ-050",
+                title: "Памятник ПМ-050",
+                image: "мусульманские/33.jpg"
+            },
+            {
+                id: "ПМ-051",
+                title: "Памятник ПМ-051",
+                image: "мусульманские/43.jpg"
+            },
+            {
+                id: "ПМ-052",
+                title: "Памятник ПМ-052",
+                image: "мусульманские/36.jpg"
+            },
+            {
+                id: "ПМ-053",
+                title: "Памятник ПМ-053",
+                image: "мусульманские/38.jpg"
+            },
+            {
+                id: "ПМ-054",
+                title: "Памятник ПМ-054",
+                image: "мусульманские/39.jpg"
+            },
+            {
+                id: "ПМ-055",
+                title: "Памятник ПМ-055",
+                image: "мусульманские/40.jpg"
+            },
+            {
+                id: "ПМ-056",
+                title: "Памятник ПМ-056",
+                image: "мусульманские/41.jpg"
+            },
+            {
+                id: "ПМ-057",
+                title: "Памятник ПМ-057",
+                image: "мусульманские/24.jpg"
+            },
+            {
+                id: "ПМ-058",
+                title: "Памятник ПМ-058",
+                image: "мусульманские/35.jpg"
+            },
+            {
+                id: "ПМ-059",
+                title: "Памятник ПМ-059",
+                image: "мусульманские/30.jpg"
+            },
+            {
+                id: "ПМ-060",
+                title: "Памятник ПМ-060",
+                image: "мусульманские/45.jpg"
+            },
+            {
+                id: "ПХ-010",
+                title: "Памятник ПХ-010",
+                image: "христианские/1.jpg"
+            },
+            {
+                id: "ПХ-002",
+                title: "Памятник ПХ-002",
+                image: "христианские/2.jpg"
+            },
+            {
+                id: "ПХ-003",
+                title: "Памятник ПХ-003",
+                image: "христианские/3.jpg"
+            },
+            {
+                id: "ПХ-022",
+                title: "Памятник ПХ-022",
+                image: "христианские/5.jpg"
+            },
+            {
+                id: "ПХ-017",
+                title: "Памятник ПХ-017",
+                image: "христианские/7.jpg"
+            },
+            {
+                id: "ПХ-019",
+                title: "Памятник ПХ-019",
+                image: "христианские/8.jpg"
+            },
+            {
+                id: "ПХ-005",
+                title: "Памятник ПХ-005",
+                image: "христианские/9.jpg"
+            },
+            {
+                id: "ПХ-006",
+                title: "Памятник ПХ-006",
+                image: "христианские/14.jpg"
+            },
+            {
+                id: "ПХ-014",
+                title: "Памятник ПХ-014",
+                image: "христианские/12.jpg"
+            },
+            {
+                id: "ПХ-016",
+                title: "Памятник ПХ-016",
+                image: "христианские/13.jpg"
+            },
+            {
+                id: "ПХ-024",
+                title: "Памятник ПХ-024",
+                image: "христианские/16.jpg"
+            },
+            {
+                id: "ПХ-025",
+                title: "Памятник ПХ-025",
+                image: "христианские/11.jpg"
+            },
+            {
+                id: "ПХ-026",
+                title: "Памятник ПХ-026",
+                image: "христианские/22.jpg"
+            },
+            {
+                id: "ПХ-027",
+                title: "Памятник ПХ-027",
+                image: "христианские/23.jpg"
+            },
+            {
+                id: "ПХ-028",
+                title: "Памятник ПХ-028",
+                image: "христианские/20.jpg"
+            },
+            {
+                id: "ПХ-029",
+                title: "Памятник ПХ-029",
+                image: "христианские/19.jpg"
+            },
+            {
+                id: "ПХ-037",
+                title: "Памятник ПХ-037",
+                image: "христианские/18.jpg"
+            },
+            {
+                id: "ПХ-038",
+                title: "Памятник ПХ-038",
+                image: "христианские/21.jpg"
+            },
+            {
+                id: "ПХ-039",
+                title: "Памятник ПХ-039",
+                image: "христианские/24.jpg"
+            },
+            {
+                id: "ПХ-040",
+                title: "Памятник ПХ-040",
+                image: "христианские/25.jpg"
+            },
+            {
+                id: "ПХ-041",
+                title: "Памятник ПХ-041",
+                image: "христианские/26.jpg"
+            },
+            {
+                id: "ПХ-042",
+                title: "Памятник ПХ-042",
+                image: "христианские/27.jpg"
+            },
+            {
+                id: "ПХ-043",
+                title: "Памятник ПХ-043",
+                image: "христианские/17.jpg"
+            }
+            
+        ];
+
+        // Функция для поиска модели
+        function searchModel() {
+            const searchText = document.getElementById('searchInput').value.trim().toUpperCase();
+            const modelResult = document.getElementById('modelResult');
+            const modelImage = document.getElementById('modelImage');
+            const modelTitle = document.getElementById('modelTitle');
+            const modelDescription = document.getElementById('modelDescription');
+
+            const foundModel = models.find(model => model.id === searchText);
+
+            if (foundModel) {
+                modelImage.src = foundModel.image;
+                modelTitle.textContent = foundModel.title;
+                modelDescription.textContent = foundModel.description;
+                modelResult.style.display = 'block';
+            } else {
+                alert('Модель не найдена');
+                modelResult.style.display = 'none';
+            }
+        }
     </script>
 </body>
 </html>
